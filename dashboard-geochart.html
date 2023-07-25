@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>here is the title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/style.css">
+    <!--
+	The template applies google charts
+	-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+                <a class="navbar-brand" href="dashboard.html">
+                    <h1 class="tm-site-title mb-0">Canada Price Indexes for Food, Cosmetics, Energy and Tobacco</h1>
+                </a>
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">
+                               
+                                Blog
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="here is your github" target="_blank">
+                                
+                                Github
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="here is your linkedin" target="_blank">
+                                
+                                LinkedIn
+                            </a>
+                        </li>
+
+                        
+                    </ul>
+                
+                </div>
+            </div>
+
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-white mt-5 mb-5">Data Source: <a rel="data from somewhere" href="here is website for datasource"</a></p>
+                    
+                </div>
+            </div>
+            <!-- row -->
+            
+            <div class="row tm-content-row">
+                <!-- Map of Canada -->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title"> Map </h2>
+                        <div id="map_div"></div>
+                    </div>
+                </div>  
+                <script type="text/javascript">
+                    google.charts.load('current', {
+                      'packages':['geochart'],
+                      // Note: you might need to get a mapsApiKey for your project.
+                      // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                      
+                    });
+                    google.charts.setOnLoadCallback(drawMap);
+              
+                    function drawMap() {
+                      var data = google.visualization.arrayToDataTable([
+                      ["Province","Popularity"],
+                      ["CA-AB", 1],
+                      ["CA-BC", 2],
+                      ["CA-MB", 3],
+                      ["CA-NB", 4],
+                      ["CA-NL", 5],
+                      ["CA-NS", 6],
+                      ["CA-ON", 7],
+                      ["CA-PE", 8],
+                      ["CA-QC", 9],
+                      ["CA-SK", 10],
+                      ["CA-NT", 11],
+                      ["CA-NU", 12],
+                      ["CA-YT", 13],
+                      //["GL","CA-YT", 3],
+                      //["PM","CA-YT", 3],
+                 
+                      ]);
+              
+                      var options = {
+                          region: 'CA',
+                          resolution:'provinces',
+                          backgroundColor : {fill: 'transparent'},
+                          //backgroundColor : {stroke: '#f5f5dc'},
+                          //backgroundColor : {strokeWidth: '50'},
+                          keepAspectRatio:true,
+                          colorAxis: {
+                            colors: ['#DF6040', '#E5954E','#F7B44B','#FFE2A6','#A59679','#c93756']
+                            //colors: ['#fb9b00', '#e4430b','#aa1906','#3a1008','#e4f9f6','#a9e6f5']
+                          },
+                          //defaultColor: '#161D15',
+                          datalessRegionColor: 'transparent',
+                          forceIFrame: true,
+
+                          
+              
+                      };
+              
+                      var container = document.getElementById('map_div');
+                      var chart = new google.visualization.GeoChart(container);
+              
+                      chart.draw(data, options);
+                    };
+
+                  </script>
+                    
+                <!-- Line Chart -->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Changes in Years</h2>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                    <script>
+                       
+                        async function getData_line() {
+                            const response = await fetch('https://raw.githubusercontent.com/renrihui8415/Java-html-css-Project-Website/website/data/priceindex_line.json');
+                            const data = await response.json();
+                            console.log(data);
+
+                            length = data.length;
+                            console.log(length);
+                            // labels_1 = [];
+                            // values_1 = [];
+                            // labels_2 = [];
+                            // values_2 = [];
+                            labels_3 = [];
+                            values_3 = [];
+                            labels_4 = [];
+                            values_4 = [];
+                            
+                            for (i = 0; i < length; i++) {
+
+                                // if (1==data[i].Status) {
+                                //     labels_1.push(data[i].Year);
+                                //     values_1.push(data[i].AVG);
+                                // }  
+                                // if (2==data[i].Status) {
+                                //     labels_2.push(data[i].Year);
+                                //     values_2.push(data[i].AVG);
+                                // }
+                                if (3==data[i].Status) {
+                                    labels_3.push(data[i].Year);
+                                    values_3.push(data[i].AVG);
+                                }
+                                if (4==data[i].Status) {
+                                    labels_4.push(data[i].Year);
+                                    values_4.push(data[i].AVG);
+                                }     
+                            
+                            }
+                            // console.log(labels_1);
+                            // console.log(values_1);
+                           
+                            new Chart(document.getElementById("lineChart"), {
+                              type: 'line',
+                              data: {
+                                 labels: labels_3,
+                                 datasets: [
+                                    // {
+                                    //     label: "Food",
+                                    //     data: values_1,
+                                    //     fill: false,
+                                    //     borderColor: "rgb(75, 192, 192)",
+                                    //     cubicInterpolationMode: "monotone",
+                                    //     pointRadius: 0
+                                    // },
+                                    // {
+                                    //     label: "Cosmetics",
+                                    //     data: values_2,
+                                    //     fill: false,
+                                    //     borderColor: "rgba(255,99,132,1)",
+                                    //     cubicInterpolationMode: "monotone",
+                                    //     pointRadius: 0
+                                    // },
+                                    {
+                                        label: "Energy",
+                                        data: values_3,
+                                        fill: false,
+                                        borderColor: "rgba(153, 102, 255, 1)",
+                                        cubicInterpolationMode: "monotone",
+                                        pointRadius: 0
+                                    },
+                                    {
+                                        label: "Tobacco",
+                                        data: values_4,
+                                        fill: false,
+                                        borderColor: "rgb(255,255,0)",
+                                        cubicInterpolationMode: "monotone",
+                                        pointRadius: 0
+                                    }
+                                 ]
+                              },
+                              options: {
+                                scales: {
+                                yAxes: [
+                                {
+                                    scaleLabel: {
+                                    display: true,
+                                    labelString: "Currency: CAD"
+                                    }
+                                }
+                                ]
+                            },
+                                legend: { display: true },
+                                title: {
+                                display: true,
+                                text: 'Price Changes Over Years'
+                                }
+                              }
+                           });
+                        };
+                        getData_line();
+                     </script>
+
+                </div>
+                <!-- bar Chart -->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title">Milk and Steak</h2>
+                        <canvas id="barChart"></canvas>
+                    </div>
+                    <script>
+                        
+                        async function getData_bar() {
+                           const response = await fetch('https://raw.githubusercontent.com/renrihui8415/Java-html-css-Project-Website/website/data/priceindex_bar1.json');
+                           const data = await response.json();
+                           console.log(data);
+                           length = data.length;
+                           console.log(length);
+                           labels = [];
+                           values = [];
+                           year=[];
+                           month=[];
+                           for (i = 0; i < length; i++) {
+                              labels.push(data[i].Products);
+                              values.push(data[i].Price);
+                              year.push(data[i].Year);
+                              month.push(data[i].Month);
+                           }
+                           console.log(labels);
+                           console.log(values);
+                           year=year[0];
+                           month=month[0];
+                           console.log(year);
+                           console.log(month);
+                           
+                           new Chart(document.getElementById("barChart"), {
+                              type: 'bar',
+                              data: {
+                                 labels: labels,
+                                 datasets: [
+                                    {
+                                       label: "Products",
+                                       data: values,
+                                       backgroundColor: [
+                                        "#F7604D",
+                                        "#4ED6B8",
+                                        "#A8D582",
+                                        "#D7D768",
+                                        "#9D66CC",
+                                        "#DB9C3F",
+                                        "#3889FC"
+                                        ],
+                                        borderWidth:0
+                                       
+                                    }
+                                 ]
+                              },
+                              options: {
+                                responsive: true,
+                                scales: {
+                                    yAxis: [
+                                        {
+                                            barPercentage: 0.2,
+                                            ticks: {
+                                            beginAtZero: true
+                                            },
+                                            scaleLabel: {
+                                            display: true,
+                                            labelString: "Currency: CAD"
+                                            }
+                                        }
+                                    ],
+                                    xAxis:{
+                                        beforeUpdate(axis) {
+                                            const labels = axis.chart.data.labels;
+                                            for (let i=0; i<labels.length; i++) {
+                                                const lbl = labels[i];
+                                                if (typeof lbl === 'string' && lbl.length > 10) {
+                                                    labels[i] = lbl.substring(0, 10); // cutting
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                legend: { display: false },
+                                title: {
+                                display: true,
+                                text: 'Prices in '+ month + ' / '+ year
+                                }
+                              }
+                           });
+                        };
+                        getData_bar();
+                     </script>
+                     
+                </div>
+
+                <!-- Line Chart_2 -->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title">Changes in Years</h2>
+                        <canvas id="lineChart_2"></canvas>
+                    </div> 
+                    <script>
+                    
+                        async function getData_line_2() {
+                            const response = await fetch('https://raw.githubusercontent.com/renrihui8415/Java-html-css-Project-Website/website/data/priceindex_line.json');
+                            const data_2 = await response.json();
+                            console.log(data_2);
+
+                            length = data_2.length;
+                            console.log(length);
+                            labels_1 = [];
+                            values_1 = [];
+                            labels_2 = [];
+                            values_2 = [];
+                            // labels_3 = [];
+                            // values_3 = [];
+                            // labels_4 = [];
+                            // values_4 = [];
+                            
+                            for (i = 0; i < length; i++) {
+
+                                if (1==data_2[i].Status) {
+                                    labels_1.push(data_2[i].Year);
+                                    values_1.push(data_2[i].AVG);
+                                }  
+                                if (2==data_2[i].Status) {
+                                    labels_2.push(data_2[i].Year);
+                                    values_2.push(data_2[i].AVG);
+                                }
+                                // if (3==data[i].Status) {
+                                //     labels_3.push(data[i].Year);
+                                //     values_3.push(data[i].AVG);
+                                // }
+                                // if (4==data[i].Status) {
+                                //     labels_4.push(data[i].Year);
+                                //     values_4.push(data[i].AVG);
+                                // }     
+                            
+                            }
+                            // console.log(labels_1);
+                            // console.log(values_1);
+                            
+                            new Chart(document.getElementById("lineChart_2"), {
+                                type: 'line',
+                                data: {
+                                    labels: labels_1,
+                                    datasets: [
+                                    {
+                                        label: "Food",
+                                        data: values_1,
+                                        fill: false,
+                                        borderColor: "rgb(75, 192, 192)",
+                                        cubicInterpolationMode: "monotone",
+                                        pointRadius: 0
+                                    },
+                                    {
+                                        label: "Cosmetics",
+                                        data: values_2,
+                                        fill: false,
+                                        borderColor: "rgba(255,99,132,1)",
+                                        cubicInterpolationMode: "monotone",
+                                        pointRadius: 0
+                                    }
+                                    // {
+                                    //     label: "Energy",
+                                    //     data: values_3,
+                                    //     fill: false,
+                                    //     borderColor: "rgba(153, 102, 255, 1)",
+                                    //     cubicInterpolationMode: "monotone",
+                                    //     pointRadius: 0
+                                    // },
+                                    // {
+                                    //     label: "Tobacco",
+                                    //     data: values_4,
+                                    //     fill: false,
+                                    //     borderColor: "rgb(255,255,0)",
+                                    //     cubicInterpolationMode: "monotone",
+                                    //     pointRadius: 0
+                                    // }
+                                    ]
+                                },
+                                options: {
+                                    scales: {
+                                    yAxes: [
+                                    {
+                                        scaleLabel: {
+                                        display: true,
+                                        labelString: "Currency: CAD"
+                                        }
+                                    }
+                                    ]
+                                },
+                                    legend: { display: true },
+                                    title: {
+                                    display: true,
+                                    text: 'Price Changes'
+                                    }
+                                }
+                            });
+                        };
+                        getData_line_2();
+                    </script>
+
+                </div>
+                
+               
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Data</h2>
+        
+                        <div id="source_table"></div>
+                        <script>   
+                            // Function to convert JSON data to HTML table
+                                async function convert() {
+                                    const response = await fetch('https://raw.githubusercontent.com/renrihui8415/Java-html-css-Project-Website/website/data/priceindex_sourcedata.json');
+                                    const jsonData = await response.json();
+                                    // console.log(jsonData);
+
+                                    length = jsonData.length;
+                                    console.log(length);
+                                    
+                                    // Get the container element where the table will be inserted
+                                    let container = document.getElementById("source_table");
+                                    
+                                    // Create the table element
+                                    let table = document.createElement("table");
+                                    
+                                    // Get the keys (column names) of the first object in the JSON data
+                                    let cols = Object.keys(jsonData[0]);
+                                    
+                                    // Create the header element
+                                    let thead = document.createElement("thead");
+                                    let tr = document.createElement("tr");
+                                    
+                                    // Loop through the column names and create header cells
+                                    cols.forEach((item) => {
+                                        let th = document.createElement("th");
+                                        th.innerText = item; // Set the column name as the text of the header cell
+                                        tr.appendChild(th); // Append the header cell to the header row
+                                    });
+                                    thead.appendChild(tr); // Append the header row to the header
+                                    table.append(tr) // Append the header to the table
+                                    
+                                    // Loop through the JSON data and create table rows
+                                    jsonData.forEach((item) => {
+                                        let tr = document.createElement("tr");
+                                        
+                                        // Get the values of the current object in the JSON data
+                                        let vals = Object.values(item);
+                                        
+                                        // Loop through the values and create table cells
+                                        vals.forEach((elem) => {
+                                        let td = document.createElement("td");
+                                        td.innerText = elem; // Set the value as the text of the table cell
+                                        tr.appendChild(td); // Append the table cell to the table row
+                                        });
+                                        table.appendChild(tr); // Append the table row to the table
+                                    });
+                                    container.appendChild(table) // Append the table to the container element
+                                };
+                                convert();
+                            </script>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2023</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="here is the address" class="tm-footer-link">Template</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/moment.min.js"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="js/Chart.min.js"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+ 
+    <script>
+        Chart.defaults.global.defaultFontColor = 'white';
+    </script>
+</body>
+
+</html>
