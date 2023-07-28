@@ -102,10 +102,7 @@
                       ["CA-SK", 10],
                       ["CA-NT", 11],
                       ["CA-NU", 12],
-                      ["CA-YT", 13],
-                      //["GL","CA-YT", 3],
-                      //["PM","CA-YT", 3],
-                 
+                      ["CA-YT", 13]
                       ]);
               
                       var options = {
@@ -145,6 +142,7 @@
                        
                         async function getData_line() {
                             const response = await fetch('https://raw.githubusercontent.com/renrihui8415/Java-html-css-Project-Website/website/data/priceindex_line.json');
+                            // if to fetch local file, replace with the file path
                             const data = await response.json();
                             console.log(data);
 
