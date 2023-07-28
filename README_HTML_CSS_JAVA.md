@@ -1,3 +1,6 @@
+### Automated Data Visualization Process ###
+# Fully automated data workflow from data collection, data ETL to data visualization on the website.
+
 # Basic technologies for building a website:
 * HTML5
 * CSS
